@@ -35,6 +35,8 @@ ui.py是寫來和前端互動範例
 
 啟動
 uvicorn main:app --reload
+上架的
+uvicorn main:app --host 0.0.0.0 --port $PORT
 
 看結果跟測試
 http://127.0.0.1:8000/docs
