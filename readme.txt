@@ -40,3 +40,21 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 看結果跟測試
 http://127.0.0.1:8000/docs
+
+docker
+build image
+docker build -t image-app:1.0 .
+#下面左邊的port是本機的, 右邊是對外的
+docker run -p 8000:8000 image-app:1.0
+
+如果要弄多核如下
+requirements.txt
+內要多安裝gunicorn
+Dockfile內要改成
+CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "-b", "0.0.0.0:8000"]
+參數	意思
+gunicorn #production server
+-w 4 #4 個 worker（CPU 多核心）
+uvicorn.workers.UvicornWorker #用 uvicorn 跑 FastAPI
+main:app #你的 FastAPI app
+-b 0.0.0.0:8000	#對外開 port
